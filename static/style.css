@@ -1,0 +1,219 @@
+@import url(https://fonts.googleapis.com/css?family=Exo:100,200,400);
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:700,400,300);
+
+body{
+	margin: 0;
+	padding: 0;
+	background: #fff;
+	color: #fff;
+	font-family: Arial;
+	font-size: 12px;
+}
+
+.header1{
+	position: absolute;
+	top: calc(2%);
+	left: calc(9%);
+	z-index: 2;
+}
+
+.header1 div{
+	float: left;
+	color: #29a329;
+	font-family: 'Exo', sans-serif;
+	font-size: 50px;
+	font-weight: 200;
+}
+.header1 div span{
+	color: #15c481 !important;
+}
+
+
+.body{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	width: auto;
+	height: auto;
+	background-image: url("/static/t2.jpg");
+	background-color: #366b69;
+	background-size: cover;
+	-webkit-filter: blur(3.5px);
+	z-index: 0;
+}
+
+.body1{
+	position: relative;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	width: auto;
+	height: auto;
+	z-index: 0;
+}
+
+.header{
+	position: absolute;
+	top: calc(42%);
+	left: calc(16%);
+	z-index: 2;
+}
+.header div{
+	float: left;
+	color: #fff;
+	font-family: 'Exo', sans-serif;
+	font-size: 50px;
+	font-weight: 200;
+}
+.header div span{
+	color: #15c481 !important;
+}
+.login{
+	position: absolute;
+	top: calc(25%);
+	left: calc(60%);
+  margin-left: 5px;
+	height: 100px;
+	width: 300px;
+	padding: 5px;
+	z-index: 2;
+	float: left;
+	color: #25c289;
+	font-family: 'Exo', sans-serif;
+	font-size: 20px;
+	font-weight: 450;
+}
+.login input[type=text]{
+	margin-bottom: 7px;
+	height: 100px;
+	width: 500px;
+	background: transparent;
+	border: 1px solid rgba(255,255,255,0.6);
+	border-radius: 2px;
+	color: #fff;
+	font-family: 'Exo', sans-serif;
+	font-size: 22px;
+	font-weight: 400;
+	padding: 4px;
+}
+
+.login div span{
+	color: #33c481 !important;
+}
+
+textarea {
+	position: relative;
+	margin-bottom: 7px;
+	height: 50px;
+	width: 800px;
+	background: #33c481;
+	border: 1px solid rgba(255,255,255,0.6);
+	border-radius: 2px;
+	color: whhite;
+	font-family: 'Exo', sans-serif;
+	font-size: 22px;
+	font-weight: 400;
+	padding: 4px;
+}
+
+.login input[type=password]{
+	width: 250px;
+	height: 30px;
+	outline: none;
+	position: absolute;
+	left: calc(20%);
+	top: calc(80%);
+	background-color: #ffffcc;
+	border: 1px solid rgba(255,255,255,0.9);
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 4px;
+	margin-top: 10px;
+}
+
+.login input[type=button]{
+	width: 200px;
+	height: 35px;
+	background: #ffffcc;
+	border: 1px solid rgba(255,255,255,0.9);
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 4px;
+	position: absolute;
+	left:calc(70%);
+	margin-top: 10px;
+	cursor: pointer;
+	border-radius: 2px;
+	color: white;
+}
+
+.btn{
+	width: 200px;
+	height: 35px;
+	background: #bf4040;
+	border: 1px solid rgba(255,255,255,0.9);
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 4px;
+	position: relative;
+	left:calc(80%);
+	margin-top: 10px;
+	cursor: pointer;
+	border-radius: 2px;
+	color: black;
+}
+#fileupload{
+    width: 260px;
+	height: 35px;
+	cursor: pointer;
+	color: white;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 6px;
+	margin-top: 10px;
+}
+#fileupload input[type='file']{
+    border: 10px solid red;
+}
+
+.login input[type=submit]:hover{
+	opacity: 0.8;
+}
+
+.login input[type=submit]:active{
+	opacity: 0.6;
+}
+
+.login input[type=text]:focus{
+	outline: none;
+	border: 1px solid rgba(255,255,255,0.9);
+}
+
+.login input[type=password]:focus{
+	outline: none;
+	border: 1px solid rgba(255,255,255,0.9);
+}
+
+.login input[type=submit]:focus{
+	outline: none;
+}
+
+::-webkit-input-placeholder{
+   color: rgba(255,255,255,0.6);
+}
+
+
+::-moz-input-placeholder{
+   color: rgba(255,255,255,0.6);
+}
+.login #job_desc_header{
+    color: #fff;
+    font-family: 'Exo', sans-serif;
+}

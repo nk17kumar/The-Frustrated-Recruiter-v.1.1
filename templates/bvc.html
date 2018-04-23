@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta charset="utf-8"/>
+    <title>Baground Veting</title>
+    <style>
+      #insertion{
+        font-size: 20px;
+        color: #111;
+      }
+    </style>
+    <!-- <link rel="shortcut icon" href="images/favicon.png"> -->
+    <link rel="stylesheet" href="{{url_for('static',filename = 'style.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename = 'style1.css')}}">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+			  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+			  crossorigin="anonymous"></script>
+<script>
+
+var num = Math.floor(Math.random() * 123) + 1;
+var store = "";
+var txt = "";
+console.log("rand : " + num);
+function exe() {
+  txt = document.getElementById('here').value;
+  console.log(txt);
+  var tmp = "<div class='container darker'><img src='/static/img2.png' alt='Avatar'><p> ";
+   tmp+=txt;
+   tmp+="</div>";
+  console.log(tmp);
+  var string = document.getElementById('insertion').innerHTML;
+  var idx = string.indexOf("<table>");
+  store = "";
+  for(var i=idx;i<string.length;i++) {
+     store += string[i];
+  }
+  document.getElementById("insertion").innerHTML = string.substr(0,idx-1);
+  document.getElementById("insertion").innerHTML+=tmp;
+  var x = document.getElementById("insertion").innerHTML;
+  console.log("value here : " + x);
+ }
+
+ function fun() {
+ // $(document).ready(function(){
+    // $("btn1").click(function(){
+      // if(document.getElementById('btn1').value != "Exit") {
+      //   window.location.reload();
+      //   return;
+      // }
+      console.log("inside fun");
+      var s = "/chat/" + num + "@" + txt;
+      $.get(s, function( data ) {
+        var tmp = "<div class='container'><img src='/static/img1.svg' alt='Avatar'><p> ";
+         tmp+= data['txt'];
+         tmp+="</div>";
+         document.getElementById('insertion').innerHTML += tmp + store;
+         if(data['txt'] == "Okay! Nice talking to you. Bye :)") {
+            document.getElementById('btn1').value = "Exit";
+            document.getElementById('btn1').onClick = window.location.reload();
+         }
+      });
+    // });
+  }
+// });
+</script>
+</head>
+
+
+<body>
+    <div class="header1">
+        <div>Chat <span> With </span>HR</div>
+    </div>
+<div id = "insertion" class = "holder">
+<div class='container'><img src='/static/img1.svg' alt='Avatar'>
+  <p> Hi ! </p>
+</div>
+<table>
+  <tr>
+    <td>
+      <textarea id = "here" name="previousJob" wrap="soft" placeholder="Enter some text..." ></textarea>
+    </td>
+    <td>
+      <input type="button" onClick = "exe();fun();" class = "btn" id="btn1" value="Go!">
+    </td>
+  </tr>
+</table>
+</div>
+
+</div>
+
+<!-- </div> -->
+</body>
+</html>

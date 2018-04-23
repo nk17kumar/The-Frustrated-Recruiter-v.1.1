@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Sentiment Analysis</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+
+
+      <link rel="stylesheet" href="css/style.css">
+<style>
+/* Add animation to "page content" */
+.animate-bottom {
+  position: relative;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: animatebottom;
+  animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+  from { bottom:-80px; opacity:0 }
+  to { bottom:0px; opacity:1 }
+}
+
+@keyframes animatebottom {
+  from{ bottom:-80px; opacity:0 }
+  to{ bottom:0px; opacity:1 }
+}
+
+
+h1{
+  font-size: 30px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 15px;
+}
+table{
+  width:100%;
+  table-layout: fixed;
+  padding-bottom: 20px;
+
+}
+.tbl-header{
+  background-color: rgba(37, 196, 129,0.8);
+ }
+.tbl-content{
+  height:270px;
+  overflow-x:auto;
+  margin-top: 0px;
+  border: 1px solid rgba(37, 196, 129,0.5);
+  background-color: rgba(255,255,255,0.2);
+}
+th{
+  padding: 20px 15px;
+  text-align: left;
+  font-weight: 650;
+  font-size: 15px;
+  color: #fff;
+}
+td{
+  padding: 15px;
+  text-align: left;
+  vertical-align:middle;
+  font-weight: 300;
+  font-size: 12px;
+  color: #fff;
+  border-bottom: solid 1px rgba(255,255,255,0.1);
+}
+
+
+/* demo styles */
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
+body{
+  background-image: url("images/t4.jpg");
+  font-family: 'Roboto', sans-serif;
+  background-size: cover;
+  background-color: black;
+}
+section{
+  margin-top: 10px;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-bottom: 10px;
+}
+
+
+/* follow me template */
+
+/* for custom scrollbar for webkit browser*/
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+#chart_div
+{
+margin-top: 10px;
+margin-bottom:10px;
+
+}
+.chart_heading
+{
+font-family: 'Exo', sans-serif;
+font-weight: 200;
+text-align: center;
+color: #fff;
+margin-top: 10px;
+font-size: 30px;
+}
+
+.chart_heading span
+{
+color: #25c481 !important;
+}
+
+#Ultra
+{
+
+margin-left:540px;
+margin-top:10px;
+
+}
+#he1{
+font-size:20px;
+color:white;
+}
+</style>
+
+ <script>
+ // '.tbl-content' consumed little space for vertical scrollbar, scrollbar width depend on browser/os/platfrom. Here calculate the scollbar width .
+$(window).on("load resize ", function() {
+  var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
+  $('.tbl-header').css({'padding-right':scrollWidth});
+}).resize();
+ </script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+google.charts.load('current', {packages: ['corechart', 'line']});
+google.charts.setOnLoadCallback(drawLineStyles);
+var options1 = {
+		chartArea: {width: '70%'},
+        hAxis: {
+          title: 'Date'
+        },
+        vAxis: {
+          title: 'Average Sentiment'
+        }
+      };
+function drawLineStyles() {
+var data = new google.visualization.DataTable();
+data.addColumn('date', 'Date');
+data.addColumn('number','BBQ');
+data.addColumn('number','HungryHouse');
+data.addColumn('number','Candidate 01');
+data.addRows([[new Date(2017,06,10),-0.05,0.11,-0.06],[new Date(2017,06,11),0.38,-0.38,0.31],[new Date(2017,06,12),-0.23,0.18,-0.01]]);
+var chart1 = new google.visualization.LineChart(document.getElementById('chart_div'));
+      chart1.draw(data, options1);
+    }
+</script>
+<script>
+google.charts.load('current', {packages: ['corechart', 'bar']});
+
+var flag=1;
+google.charts.setOnLoadCallback(drawBasic);
+    function run() {
+
+		flag=document.getElementById("Ultra").value;
+		google.charts.setOnLoadCallback(drawBasic);
+    }
+
+var options = {
+        title: 'Sentiment scores of Resume',
+        chartArea: {width: '50%'},
+        hAxis: {
+          title: 'Sentiment score',
+          minValue: 0
+        },
+        vAxis: {
+          title: 'Category'
+        }
+      };
+
+function drawBasic() {
+var data1=google.visualization.arrayToDataTable([
+['Category','Sentiment Score',],['food',0.16],['ambience',-0.35],['service',-0.24]
+]);
+var data2=google.visualization.arrayToDataTable([
+['Category','Sentiment Score',],['food',0.15],['ambience',0.50],['service',0.16]
+]);
+var data3=google.visualization.arrayToDataTable([
+['Category','Sentiment Score',],['food',-0.35],['ambience',-0.35],['service',-0.24]
+]);
+var chart = new google.visualization.BarChart(document.getElementById('chart_div1'));
+
+if(flag==1) chart.draw(data1, options);
+if(flag==2) chart.draw(data2, options);
+if(flag==3) chart.draw(data3, options);
+}
+</script>
+</head>
+
+<body>
+  <section class="animate-bottom">
+  <!--for demo wrap-->
+  <div class="chart_heading">Sentiment <span>Scores</span></div>
+  <br>
+  <div class="tbl-header">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <thead>
+        <tr>
+		  <th>Resume</th>
+		  <th>Date</th>
+		  <th>Sentence_id</th>
+		  <th>Sentiment polarity</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div class="tbl-content">
+    <table cellpadding="0" cellspacing="0" border="0">
+	<tbody>
+<tr><td>Candidate 01</td><td>10-06-17</td><td>1</td><td>0.29</td></tr>
+<tr><td>Candidate 01</td><td>10-06-17</td><td>2</td><td>service</td><td>0.00</td></tr>
+<tr><td>Candidate 01</td><td>10-06-17</td><td>3</td><td>-0.70</td></tr>
+<tr><td>Candidate 01</td><td>10-06-17</td><td>4</td><td>0.00</td></tr>
+<tr><td>Candidate 01</td><td>10-06-17</td><td>5</td><td>-0.65</td></tr>
+<tr><td>Candidate 01</td><td>10-06-17</td><td>6</td><td>0.70</td></tr>
+<tr><td>Candidate 01</td><td>11-06-17</td><td>1</td><td>0.00</td></tr>
+<tr><td>Candidate 01</td><td>11-06-17</td><td>2</td><td>0.70</td></tr>
+<tr><td>Candidate 01</td><td>11-06-17</td><td>3</td><td>-0.06</td></tr>
+<tr><td>Candidate 01</td><td>11-06-17</td><td>4</td><td>0.40</td></tr>
+</tbody>
+    </table>
+  </div>
+  <div class="chart_heading">Sentiment-Score <span>Comparison</span></div>
+  <div id="chart_div"></div>
+  <div class="chart_heading">Taxonomy-wise <span>Sentiment Snapshot</span></div>
+  <select id="Ultra" onchange="run()">
+<option value="1">Candidate 01</option>
+<option value="2">HungryHouse</option>
+<option value="3">BBQ</option>
+</select><br><br>
+<div id="chart_div1"></div>
+</section>
+
+
+<!-- follow me template -->
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+    <script src="js/index.js"></script>
+</body>
+</html>

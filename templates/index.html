@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta charset="utf-8"/>
+    <title>Recruiter Home</title>
+    <!-- <link rel="shortcut icon" href="images/favicon.png"> -->
+    <link rel="stylesheet" href="{{url_for('static',filename = 'style.css')}}">
+    <script
+			  src="https://code.jquery.com/jquery-3.3.1.min.js"
+			  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+			  crossorigin="anonymous"></script>
+
+<script>
+$('input[type=file]').change(function () {
+    console.log(this.files[0].mozFullPath);
+});
+
+function exe() {
+  var store = document.getElementById('here');
+  $.get("/data", function(data, status){
+        console.log("hererererer");
+        store = data["name"];
+        document.getElementById("job_desc_header").innerHTML = store;
+   });
+ }
+
+function eval() {
+  $.get("/eval", function(data, status){
+        console.log("going to bot\n");
+        console.log(data)
+   });
+}
+</script>
+</head>
+
+<body>
+    <div class="body"></div>
+    <!-- body content-->
+    <div class="header">
+        <div>The<span> Frustrated</span> Recruiter</div>
+    </div><br>
+
+
+
+    <div class="login">
+        <form method = "GET" action = "submit.html" >
+            <div>
+                If you are a Recruiter, Please set the Resumes directory <br/>
+                <input title="Select Files to upload" accept="application/pdf" type="file" name="resume[]" multiple="true" id="fileupload">
+            </div>
+            <br/>
+
+            <div>
+              If you are a Candidate, Please upload your Resume <br/>
+                <input title="Select Files to upload" accept="application/pdf" type="file" name="resume[]" multiple="true" id="fileupload1">
+            </div>
+            <!-- <textarea id = "here" name="previousJob" cols="30" rows="5" wrap="soft" placeholder="Enter some text..." ></textarea> -->
+            <br/>
+
+            <input type="button" value="Go!" onclick="eval()">
+        </form>
+    </div>
+
+<p id = "demo">text</p>
+</body>
+</html>
