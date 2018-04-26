@@ -6,7 +6,6 @@ import os
 
 import time
 
-arr = ['c++','java','python','html-css','database','leadership','communication']
 
 path = "/home/nk17kumar/sampleResumes/"
 
@@ -18,6 +17,7 @@ class Response:
 
 class Recruiter:
 
+    arr = ['c++','java','python','html-css','database','leadership','communication']
     pool = {}
     preposition = ['a','the','of','in','and','i','have','also','but']
 
@@ -76,11 +76,15 @@ class Recruiter:
             if cnt != 0:
                 gscore = score/cnt
             score_card[skill] = gscore
+
+        for skill in Recruiter.arr:
+            if(score_card.has_key(skill) != 1):
+                score_card[skill] = 0
         return score_card
 
     @staticmethod
     def train():
-        for s in arr:
+        for s in Recruiter.arr:
             Recruiter.buildPool(s)
 
     @staticmethod
