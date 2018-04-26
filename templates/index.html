@@ -20,18 +20,15 @@
         var Leadership=document.getElementById('Leadership');
         var Communication=document.getElementById('Communication');
 
-         window.location.href = "/eval?C++="+Cplus+"&Python="+Python+"&Java="+Java+"&html"+html+"&Leadership="+Leadership+"&Communication="+Communication;
+         window.location.href = "/eval/C++="+Cplus+"&Python="+Python+"&Java="+Java+"&html"+html+"&Leadership="+Leadership+"&Communication="+Communication;
     }
 $('input[type=file]').change(function () {
     console.log(this.files[0].mozFullPath);
 });
 
 function exe() {
-  var store = document.getElementById('here');
-  $.get("/data", function(data, status){
-        console.log("hererererer");
-        store = data["name"];
-        document.getElementById("job_desc_header").innerHTML = store;
+  $.get("/eval", function(data, status){
+        console.log(data);
    });
  }
 </script>
@@ -42,7 +39,7 @@ function exe() {
 </head>
 
 <body >
-    
+
 
 <div style=" margin-top: 40px;margin-left: 50px;font-style: italic;">
     <a href="bvc" style="font-size: 20px;font-weight: 50;color:white;-webkit-filter: blur(0px)"> Background  Vetting  Check </a>
@@ -59,7 +56,7 @@ function exe() {
 
 
     <div class="login">
-        <form method = "GET" action = "submit.html" >
+        <form method = "GET" >
             <div>
                 If you are a Recruiter, Please set the Resumes directory <br/>
                 <input title="Select Files to upload" accept="application/pdf" type="file" name="resume[]" multiple="true" id="fileupload">
@@ -86,7 +83,7 @@ function exe() {
             <textarea id="Leadership" placeholder="Leadership" style="width: 130px;height: 25px;font-size:18px"></textarea>
             <textarea id="Communication" placeholder="Communication" style="width: 135px;height: 25px;font-size:18px;margin-left: 9px"></textarea>
             <br/>
-            <input class="btn" type="submit" value="Go!" style="margin-top: 20px;background-color: #ffffcc">
+            <input class="btn" type="button" onclick="exe()" value="Go!" style="margin-top: 20px;background-color: black ">
         </form>
     </div>
 
