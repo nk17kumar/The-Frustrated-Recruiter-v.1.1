@@ -3,7 +3,7 @@ from bagroundVetting import *
 from RecruiterBot import *
 import numpy as np
 import matplotlib.pyplot as plt
-
+import urlparse
 
 app = Flask(__name__)
 
@@ -42,7 +42,7 @@ def chatbox():
 @app.route('/analyse')
 def analysis():
 	html = "<html><head><title>Analysis</title></head><body>"
-	html += "<table border = 10><tr><th>S.No.</th><th>Resume Name </th><th>C++</th><th>Java</th><th>Python</th><th>Database</th></tr>"
+	html += "<table border = 10><tr><th>S.No.</th><th>Resume Name </th><th>C++</th><th>Java</th><th>Python</th><th>Communication</th></tr>"
 	sno = 1
 	for key,v in store.scorecard.items():
 		html+="<tr>"
@@ -51,7 +51,7 @@ def analysis():
 		html+="<td>"+str(store.scorecard[key]["c++"])+"</td>"
 		html+="<td>"+str(store.scorecard[key]["java"])+"</td>"
 		html+="<td>"+str(store.scorecard[key]["python"])+"</td>"
-		html+="<td>"+str(store.scorecard[key]["database"])+"</td>"
+		html+="<td>"+str(store.scorecard[key]["communication"])+"</td>"
 		html+="</tr>"
 		sno+=1
 	html+="</table></body></html>"
@@ -63,31 +63,65 @@ def analysis():
 def chitchat(txt):
 	id = getId(txt)
 	txt = getTxt(txt)
+	fo = open("logTemp.txt","r")
+	start = fo.read()
+	fname = "logreport/user" + id +".txt"
+
+	f = open(fname,"a")
+
 	print "txt is : " + txt
 	score = Chat.getSentimentScore(txt)
 	qid = 0
 	if Qno.has_key(id) == False:
 		qid = 0
+		f.write(start + "\n\n")
+		f.write("User log report for user id : " + str(id) + "\n\n")
+		f.write("Question : Hi ?\n")
 		store.bvc[id] = {}
 	else:
 		qid = Qno[id]
+	f.write("Answer : " +txt+"\n")
 	store.bvc[id][qid] = score
+	f.write(str(score) + "\n\n------------------------------\n\n")
 	qid+=1
 	d = {"txt":arr[qid]}
+	f.write("Question : " + arr[qid] + "\n")
 	Qno[id] = qid
 	# if(id == 3):
 	print "here is data : " + str(store.bvc)
 	return jsonify(d);
 
 
-@app.route('/eval' , methods = ['GET','POST'])
-def bot():
+@app.route('/eval/<url>' , methods = ['GET','POST'])
+def bot(url):
+	print "\n"
+	print "\n"
+	print "here in eval : " + url
+	arr = url.split('=')
+	print arr
+	l = len(arr)
+	par = {}
+	i=0
+	while i < l:
+		par[arr[i]] = int(arr[i+1])
+		# print arr[i]
+		i+=2
+	print "\n"
+	print "printing recruiter requirement : " + str(par)
 	store.scorecard = Recruiter.eval()
 	for key,v in store.scorecard.items():
+		f = 1
 		for skill in skillset:
 			if skill in store.scorecard[key] == False:
 				store.scorecard[key][skill] = 0
+			else:
+				if par[skill] > store.scorecard[key][skill]:
+					f = 0
+		if f == 1:
+			store.selected[key] = store.scorecard[key]
 	chart()
+	print "\n"
+	print "Selected resumes : " + str(store.selected)
 	return jsonify(store.scorecard)
 	# return scorecard
 
@@ -111,11 +145,14 @@ def autolabel(rects, xpos='center'):
 # @app.route('/chart')
 def chart():
 	# populating resume names
+	if len(store.selected) == 0:
+		return
+	
 	names = []
 	std = []
 	print "\n"
-	print "Scorecard : " + str(store.scorecard)
-	for k in store.scorecard.keys():
+	print "Scorecard : " + str(store.selected)
+	for k in store.selected.keys():
 		names.append(k)
 		std.append(0)
 
@@ -125,9 +162,9 @@ def chart():
 	for skill in skillset:
 		tscore = []
 		# print "\n" + "checking skill : " + str(skill)
-		for key in store.scorecard.keys():
+		for key in store.selected.keys():
 			# print "\n" + "rsume : " + str(key)
-			tscore.append(store.scorecard[key][skill])
+			tscore.append(store.selected[key][skill])
 		score[skill] = tscore
 
 	# print "\n"
