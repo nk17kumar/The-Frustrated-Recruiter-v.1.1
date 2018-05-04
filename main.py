@@ -14,6 +14,7 @@ skillset = ["c++","java","python","database","communication","leadership"]
 class store:
 	bvc = {}
 	scorecard = {}
+	selected = {}
 	ax = ""
 
 def getId(txt):
@@ -37,6 +38,26 @@ def home():
 @app.route('/bvc')
 def chatbox():
 	return render_template("bvc.html")
+
+@app.route('/analyse')
+def analysis():
+	html = "<html><head><title>Analysis</title></head><body>"
+	html += "<table border = 10><tr><th>S.No.</th><th>Resume Name </th><th>C++</th><th>Java</th><th>Python</th><th>Database</th></tr>"
+	sno = 1
+	for key,v in store.scorecard.items():
+		html+="<tr>"
+		html+="<td>"+str(sno)+"</td>"
+		html+="<td>"+str(key)+"</td>"
+		html+="<td>"+str(store.scorecard[key]["c++"])+"</td>"
+		html+="<td>"+str(store.scorecard[key]["java"])+"</td>"
+		html+="<td>"+str(store.scorecard[key]["python"])+"</td>"
+		html+="<td>"+str(store.scorecard[key]["database"])+"</td>"
+		html+="</tr>"
+		sno+=1
+	html+="</table></body></html>"
+	return html
+
+
 
 @app.route('/chat/<txt>')
 def chitchat(txt):
