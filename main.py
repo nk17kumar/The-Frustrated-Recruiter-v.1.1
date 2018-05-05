@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 Qno = {}
 arr = ["Greeting Text","Why do you want to leave your previous job?","Why should we hire you?","Are you planning for higher education?","Okay! Nice talking to you. Bye :)"]
-skillset = ["c++","java","python","database","communication","leadership"]
+skillset = ["c++","java","python","database","communication","leadership","html"]
 
 class store:
 	bvc = {}
@@ -42,7 +42,7 @@ def chatbox():
 @app.route('/analyse')
 def analysis():
 	html = "<html><head><title>Analysis</title></head><body>"
-	html += "<table border = 10><tr><th>S.No.</th><th>Resume Name </th><th>C++</th><th>Java</th><th>Python</th><th>Communication</th></tr>"
+	html += "<center>Score Analysis for all Candidates<table border = 10><tr><th>S.No.</th><th>Resume Name </th><th>C++</th><th>Java</th><th>Python</th><th>Html</th><th>Communication</th><th>Leadership</th></tr>"
 	sno = 1
 	for key,v in store.scorecard.items():
 		html+="<tr>"
@@ -51,10 +51,34 @@ def analysis():
 		html+="<td>"+str(store.scorecard[key]["c++"])+"</td>"
 		html+="<td>"+str(store.scorecard[key]["java"])+"</td>"
 		html+="<td>"+str(store.scorecard[key]["python"])+"</td>"
+		html+="<td>"+str(store.scorecard[key]["html"])+"</td>"
+		# html+="<td>"+str(store.scorecard[key]["database"])+"</td>"
 		html+="<td>"+str(store.scorecard[key]["communication"])+"</td>"
+		html+="<td>"+str(store.scorecard[key]["leadership"])+"</td>"
 		html+="</tr>"
 		sno+=1
-	html+="</table></body></html>"
+	html+="</table>"
+
+	html += "Shortlisted Candidates<table border = 10><tr><th>S.No.</th><th>Resume Name </th><th>C++</th><th>Java</th><th>Python</th><th>Html</th><th>Communication</th><th>Leadership</th></tr>"
+	sno = 1
+	for key,v in store.selected.items():
+		html+="<tr>"
+		html+="<td>"+str(sno)+"</td>"
+		html+="<td>"+str(key)+"</td>"
+		html+="<td>"+str(store.scorecard[key]["c++"])+"</td>"
+		html+="<td>"+str(store.scorecard[key]["java"])+"</td>"
+		html+="<td>"+str(store.scorecard[key]["python"])+"</td>"
+		html+="<td>"+str(store.scorecard[key]["html"])+"</td>"
+		# html+="<td>"+str(store.scorecard[key]["database"])+"</td>"
+		html+="<td>"+str(store.scorecard[key]["communication"])+"</td>"
+		html+="<td>"+str(store.scorecard[key]["leadership"])+"</td>"
+		html+="</tr>"
+		sno+=1
+	html+="</table>"
+	html+="<img src = '\static\chart.png'>"
+	html+="</center></body></html>"
+
+
 	return html
 
 
@@ -68,9 +92,12 @@ def chitchat(txt):
 	fname = "logreport/user" + id +".txt"
 
 	f = open(fname,"a")
-
-	print "txt is : " + txt
+	print "\n"
+	print "User response recieved : " + txt
+	print "Evaluating user response ....."
 	score = Chat.getSentimentScore(txt)
+	print "Response Sentiments : " + str(score)
+	print "\n"
 	qid = 0
 	if Qno.has_key(id) == False:
 		qid = 0
@@ -88,7 +115,7 @@ def chitchat(txt):
 	f.write("Question : " + arr[qid] + "\n")
 	Qno[id] = qid
 	# if(id == 3):
-	print "here is data : " + str(store.bvc)
+	# print "here is data : " + str(store.bvc)
 	return jsonify(d);
 
 
@@ -103,16 +130,18 @@ def bot(url):
 	par = {}
 	i=0
 	while i < l:
-		par[arr[i]] = int(arr[i+1])
-		# print arr[i]
+		par[arr[i]] = float(arr[i+1])
+		print arr[i]
 		i+=2
 	print "\n"
 	print "printing recruiter requirement : " + str(par)
 	store.scorecard = Recruiter.eval()
+	print "\ngetting : " + str(store.scorecard) + "\n"
 	for key,v in store.scorecard.items():
 		f = 1
 		for skill in skillset:
 			if skill in store.scorecard[key] == False:
+				print "skill : " + skill
 				store.scorecard[key][skill] = 0
 			else:
 				if par[skill] > store.scorecard[key][skill]:
@@ -147,7 +176,7 @@ def chart():
 	# populating resume names
 	if len(store.selected) == 0:
 		return
-	
+	print "creating chart"
 	names = []
 	std = []
 	print "\n"
@@ -184,11 +213,11 @@ def chart():
 	#                 color='SkyBlue', label='Men')
 	# rects2 = store.ax.bar(ind + width/2, women_means, width, yerr=women_std,
 	#                 color='IndianRed', label='Women')
-	clr = ["SkyBlue","Green","Red","Orange","Yellow","Pink"]
+	clr = ["SkyBlue","Green","Red","Orange","Yellow","Pink","brown"]
 	i=0
 	for skill in skillset:
 		i+=1
-		i%=6
+		i%=7
 		rect[skill] = store.ax.bar(ind - i*width, score[skill], width, yerr=std,
 		                color=clr[i], label=skill)
 
@@ -204,8 +233,8 @@ def chart():
 	# autolabel(rects1, "left")
 	# autolabel(rects2, "right")
 
-	for skill in skillset:
-		autolabel(rect[skill],"left")
+	# for skill in skillset:
+	# 	autolabel(rect[skill],"left")
 
 	# plt.show()
 	plt.savefig("static/chart.png")

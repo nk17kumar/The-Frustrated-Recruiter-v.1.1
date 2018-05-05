@@ -30,10 +30,10 @@ class Recruiter:
         for skill in skillSet:
             for w in words:
                 tmp = w.lower()
-                tmp = tmp.rstrip('\n')
-                # print "word : " + tmp
+                tmp = tmp.rstrip("\n")
+                print "word : " + tmp
                 if tmp == skill:
-                    skills.append(tmp)
+                    skills.append(skill)
 
         return skills
 
@@ -57,7 +57,6 @@ class Recruiter:
         # for all skill in the skillset
         for skill in skills:
             # h = words.index(skill)
-            score_card[skill] = 1.5
             l = 0
             r = len(words)
             cnt=0
@@ -77,17 +76,19 @@ class Recruiter:
                         # for all data for this skill
                         for s in Recruiter.pool[skill]:
                             arr = s.txt.rstrip().split(' ')
-                            f1 = True
+                            # print "===="
+                            # print arr
+                            # print "====="
                             try:
                                 if arr.index(tmp) >= 0:
                                     cnt+=1
-                                    print "comming here"
+                                    # print "comming here"
                                     score+=float(s.score)
                             except:
                                 cnt+=0
             if cnt != 0:
-                print "filling here"
-                score_card[skill] = max(score_card[skill],score/cnt)
+                # print "filling here"
+                score_card[skill] = score/cnt
 
 
         for skill in Recruiter.arr:
@@ -140,34 +141,36 @@ class Recruiter:
 # print Recruiter.getFileNames()
 # sz = len(arr)
 # print sz
-#
-# print "Initializing the recruiter bot\n"
-#
-# Recruiter.train()
-#
-# total = 6
-# i = 0
-# while i <= total:
-#     progress(i, total, status='Training on dataset for '+Recruiter.arr[i]+'\n')
-#     time.sleep(0.1)  # emulating long-playing job
-#     i += 1
-# print '\n'
-#
-# resume = raw_input("enter the resume file location : ")
-# print "\n"
-# txt = PdfExtractor.getResumeText(resume)
+
+print "Initializing the recruiter bot\n"
+Recruiter.train()
+
+total = 6
+i = 0
+while i <= total:
+    progress(i, total, status='Training on dataset for '+Recruiter.arr[i]+'\n')
+    time.sleep(0.1)  # emulating long-playing job
+    i += 1
+print '\n'
+
+resume = raw_input("enter the resume file location : ")
+print "\n"
+txt = PdfExtractor.getResumeText(resume)
+total = 3
+i = 0
+while i <= total:
+    progress(i, total, status='Extracting Text\n')
+    time.sleep(0.1)  # emulating long-playing job
+    i += 1
+print '\n'
 # print txt
-# total = 3
-# i = 0
-# while i <= total:
-#     progress(i, total, status='Extracting Text\n')
-#     time.sleep(0.1)  # emulating long-playing job
-#     i += 1
-# print '\n'
-#
-# skills = Recruiter.fetchTechSkills(txt)
-# print "found skills : " + str(skills)
-# skills.append("leadership")
-# skills.append("communication")
-#
-# print Recruiter.getScore(txt,skills)
+
+skills = Recruiter.fetchTechSkills(txt)
+skills.append("leadership")
+skills.append("communication")
+print "found skills : " + str(skills) + "\n"
+
+card = Recruiter.getScore(txt,skills)
+print "scorecare : \n"
+for key,v in card.items():
+    print str(key) + " = " + str(v)

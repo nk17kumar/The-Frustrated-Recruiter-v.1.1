@@ -7,10 +7,15 @@
 2.8,Worked on a web-based project in python	
 1,No with python yet
 3.5,Worked on Python projects
-3.9,Did project using python, used for web scraping
+3.9,Did project using python used for web scraping
 2,Good	
 0,Bad	
 2.5,Good
 2,Tried it sometimes during Contests	
 0,Nothing
-4,Project BlindCode Good 
+4,Project BlindCode Good
+1.5,learning python 
+4.0,Algorithm for Branch Change allocation in Python
+3.4,Programming Languages (Proficient) Python
+3.6,branch change applications in Python
+3.2,Worked on Python projects 

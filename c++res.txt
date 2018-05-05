@@ -18,3 +18,30 @@
 4,Using this in Competitive Programming Contest
 4,good
 4,Good knowledge of C++ - STL
+3.7,Implemented a fluid simulator in C++ 
+2.0,know basics of C
+2.0,know basics of C++
+2.5,know basics of C and C++ 
+3.1,Developed a ray tracer in C++ 
+3.5,Leader-Board in C++
+3.5,Programming Languages C/C++(Proficient)
+3.2,compiler for a subset of C language 
+3.7,physics simulation engine in C++
+3.3,socket programming in C++ 
+2.6,Programming Languages  C/C++
+3.3,Used socket programming libraries in C++ 
+2.5,Programming C++
+3.3,Used socket programming libraries in C++
+3.0,SimpleCpp graphics library in C++
+3.4,Developed a compiler for a subset of C language
+2.8,Good knowledge of C++
+2.9,worked on c++ project 
+3.7,Designed and Implemented a master-slave distributed system in C++
+3.66,multi-process server in C++
+3.2,Developed a compiler for a subset of C grammar
+1.8,Familiar with c and c++
+3.4,written more than 1000+ lines on code in  c++ 
+4.1,physics simulation engine written in C++  
+2.2,features of C like control flow statements
+4.2,Rube Goldbergs machine using Box2D in C++
+3.9,Implemented it in C++ using a cross-platform graphics
